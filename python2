@@ -1,0 +1,39 @@
+#查找目录下的所有文件
+import os
+root_path=os.getcwd()
+offset = len(root_path.split("\\"))
+for root,dirs,files in os.walk(root_path):
+    current_dir=root.split("\\")
+    indent=len(current_dir)-offset
+    print("\t"*indent,current_dir[-1])
+    for f in files:
+        print("\t"*(indent+1),f)
+#查找
+# try:
+#     fp=open("a.txt")
+#     fp.read()
+# except:
+#     print ("file not found")
+# finally:
+#     try:
+#         fp.close()
+#     except:
+#         print("can not close file")
+#chardet是可以在cmd上添加这个插件，pip install chardet，进行安装，然后用import查找一下，看可以用不。
+from chardet import detect
+count,balanks=0,0
+with open("a.txt","rb") as fp:
+    encode=detect(fp.read())["encoding"]
+#下面第一句用二进制输出
+print(fp.read())
+    print(encode)
+    fp.close()
+with open("a.txt","r",encoding=encode) as fp:
+    while True:
+        line=fp.readline()
+        if not line:
+            break
+        count+=1
+        if not (len(line.strip())):
+            balanks+=1
+print(count,balanks)
